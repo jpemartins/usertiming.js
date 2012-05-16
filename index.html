@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HTML5 User Timing Polyfill</title>
+		<meta name="description" content="HTML5 User Timing Polyfill">
+        <meta name="author" content="Joao Martins">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+		<script src="lib/modernizr.js"></script>
+		<script>
+		Modernizr.load({
+        	test: !!window["performance"] && !!window.performance.mark && !!window.performance.measure
+          , nope: ['usertiming.js']
+          , complete: function () {
+            test();
+          }
+        });
+		</script>
+	</head>
+	<body>
+		
+		<p> Please see your Javascript Console </p>
+		
+		<script>
+		function test() {
+		    performance.mark("Math_floor");
+            setTimeout(function () {
+	            performance.mark("Math_floor_end");
+	            performance.measure("Math_floor_duration", "Math_floor", "Math_floor_end");
+	            var p = performance.getMarks();
+	            var m = performance.getMeasures();
+	            console.log("Marks: ", p);
+	            console.log("Measures: ", m);
+            }, 1000);
+        }
+        </script>
+	</body>
+</html>
