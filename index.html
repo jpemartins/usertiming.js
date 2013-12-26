@@ -8,31 +8,32 @@
 		
 		<script src="lib/modernizr.js"></script>
 		<script>
+
+		function test() {
+		    performance.mark("Math_floor");
+	            setTimeout(function () {
+		            performance.mark("Math_floor_end");
+		            performance.measure("Math_floor_duration", "Math_floor", "Math_floor_end");
+		            var p = performance.getEntriesByType("mark");
+		            var m = performance.getEntriesByName("Math_floor_duration");
+		            console.log("Marks: ", p);
+		            console.log("Measures: ", m);
+	            }, 1000);
+        	}
 		Modernizr.load({
-        	test: !!window["performance"] && !!window.performance.mark && !!window.performance.measure
-          , nope: ['usertiming.js']
-          , complete: function () {
-            test();
-          }
-        });
+		          test: !!window["performance"] && !!window.performance.mark && !!window.performance.measure
+			, nope: ['usertiming.js']
+			, complete: function () {
+				test();
+			}
+		});
 		</script>
 	</head>
 	<body>
 		
 		<p> Please see your Javascript Console </p>
 		
-		<script>
-		function test() {
-		    performance.mark("Math_floor");
-            setTimeout(function () {
-	            performance.mark("Math_floor_end");
-	            performance.measure("Math_floor_duration", "Math_floor", "Math_floor_end");
-	            var p = performance.getMarks();
-	            var m = performance.getMeasures();
-	            console.log("Marks: ", p);
-	            console.log("Measures: ", m);
-            }, 1000);
-        }
+		<script>	
         </script>
 	</body>
 </html>
